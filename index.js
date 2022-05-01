@@ -37,10 +37,24 @@ async function run() {
             const result = await inventoryCollection.deleteOne(query);
             res.send(result);
         })
+        app.post("/", async (req, res) => {
+            const doc = req.body;
+            const result = await inventoryCollection.insertOne(doc);
+            res.send(result)
+        })
+        app.get('/my-items', async (req, res) => {
+            const email = req.query.email;
+            const query = { email: email }
+            const cursor = inventoryCollection.find(query);
+            const result = await cursor.toArray()
+
+            res.send(result)
+
+        })
         app.put('/inventory/:id', async (req, res) => {
             const id = req.params.id;
             const data = req.body
-            console.log(data);
+
             const filter = { _id: ObjectId(id) };
             const options = { upsert: true };
             const updateDoc = {
@@ -49,7 +63,7 @@ async function run() {
                 },
 
             };
-            console.log(updateDoc);
+
             const result = await inventoryCollection.updateOne(filter, updateDoc, options);
             res.send(result)
 
@@ -62,5 +76,5 @@ async function run() {
 run().catch(console.dir);
 
 app.listen(port, () => {
-    console.log(` listening on port ${port}`)
+
 })
