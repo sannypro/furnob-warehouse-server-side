@@ -1,7 +1,5 @@
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const express = require('express');
-const query = require('express/lib/middleware/query');
-const res = require('express/lib/response');
 require('dotenv').config()
 const { decode } = require('jsonwebtoken');
 const app = express();
@@ -12,6 +10,8 @@ const port = process.env.PORT || 5000;
 // middleware
 app.use(express.json());
 app.use(cors())
+
+
 function verifyToken(req, res, next) {
     const authHeader = req.headers.authorization;
 
