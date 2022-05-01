@@ -106,6 +106,9 @@ async function run() {
 
     }
 }
+app.get('/', (req, res) => {
+    res.send("Running dental care")
+})
 run().catch(console.dir);
 
 app.listen(port, () => {
