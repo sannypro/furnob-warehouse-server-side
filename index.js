@@ -1,7 +1,6 @@
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const express = require('express');
-const query = require('express/lib/middleware/query');
-const res = require('express/lib/response');
+const { decode } = require('jsonwebtoken');
 require('dotenv').config()
 const app = express();
 const cors = require('cors')
