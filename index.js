@@ -36,7 +36,7 @@ async function run() {
     try {
         await client.connect();
         const inventoryCollection = client.db('furnob-furniture-warehouse').collection("inventory");
-        app.get('/', async (req, res) => {
+        app.get('/inventories', async (req, res) => {
             const query = {};
             const cursor = inventoryCollection.find(query);
             const result = await cursor.toArray();
@@ -60,7 +60,7 @@ async function run() {
             const result = await inventoryCollection.deleteOne(query);
             res.send(result);
         })
-        app.post("/", async (req, res) => {
+        app.post("/inventories", async (req, res) => {
             const doc = req.body;
             const result = await inventoryCollection.insertOne(doc);
             res.send(result)
@@ -106,9 +106,7 @@ async function run() {
 
     }
 }
-app.get('/', (req, res) => {
-    res.send("Running dental care")
-})
+
 run().catch(console.dir);
 
 app.listen(port, () => {
