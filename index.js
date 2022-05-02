@@ -18,6 +18,7 @@ function verifyToken(req, res, next) {
     if (!authHeader) {
         return res.status(401).send({ message: 'Unauthorized access' })
     }
+
     const token = authHeader?.split(' ')[1]
     jwt.verify(token, process.env.ACCESS_TOKEN, (err, decoded) => {
         if (err) {
@@ -110,9 +111,7 @@ async function run() {
 
 run().catch(console.dir);
 
-app.get('/', (req, res) => {
-    res.send('server running')
-})
+
 app.listen(port, () => {
     console.log(` listening on port ${port}`)
 })
